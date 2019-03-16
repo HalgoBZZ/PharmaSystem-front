@@ -1,0 +1,277 @@
+<div class="row">
+<div class="col-lg-12">
+  <section class="panel">
+    <header class="panel-heading">
+        <h3>Liste des employées</h3>
+
+        <div style="float: right; margin-bottom: 10px;">
+            <button class="btn btn-primary" style="margin-right: 5px;" (click)="openModal(template)">Nouveau
+                produit</button>
+            <button class="btn btn-info" (click)="showFilter()">Filtrer<i class="fa fa-filter"
+                    aria-hidden="true"></i></button>
+        </div>
+    </header>
+    <div style="margin-top: 30px; margin-right: 2">
+        <alert type="danger" dismissible="true">
+            <strong>Erreur!</strong> Une erreur s'est produite lors d'ajout du produit.
+        </alert>
+        <alert type="success" dismissible="true">
+            <strong>Succées !</strong> L'action est effectué avec succés.
+        </alert>
+    </div>
+    <table class="table table-striped table-advance table-hover">
+        <tbody>
+            <tr>
+                <th>
+                    <ng-container *ngIf="!filter">Réference</ng-container>
+                    <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Nom">
+                    </ng-container>
+                </th>
+                <th>
+                    <ng-container *ngIf="!filter">Nom</ng-container>
+                    <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Nom">
+                    </ng-container>
+                </th>
+                <th>
+                    <ng-container *ngIf="!filter">Forme</ng-container>
+                    <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Prénom">
+                    </ng-container>
+                </th>
+                <th>
+                    <ng-container *ngIf="!filter">Dosage</ng-container>
+                    <ng-container *ngIf="filter"><input type="text" class="form-control"
+                            placeholder="Date de naissance"></ng-container>
+                </th>
+                <th>
+                    <ng-container *ngIf="!filter">Quantité</ng-container>
+                    <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Email">
+                    </ng-container>
+                </th>
+                <th>
+                    <ng-container *ngIf="!filter">Categorie</ng-container>
+                    <ng-container *ngIf="filter"><input type="text" class="form-control"
+                            placeholder="Poste"></ng-container>
+                </th>
+                <th>
+                    <ng-container *ngIf="!filter">Date d'expiration</ng-container>
+                    <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Adresse">
+                    </ng-container>
+                </th>
+                <th>
+                    <ng-container *ngIf="!filter">Prix</ng-container>
+                    <ng-container *ngIf="filter"><input type="text" class="form-control"
+                            placeholder="Telephone"></ng-container>
+                </th>
+                <th style="min-width: 5%;">Action</th>
+            </tr>
+            <tr>
+                <td>Angeline</td>
+                <td>hafeh</td>
+                <td>Beez</td>
+                <td>gdgdgdg</td>
+                <td><p class="badge bg-danger">45</p></td>
+                <td>dale@chief.info</td>
+                <td><p class="badge bg-danger">12-11-2019</p></td>
+                <td>hdhdhdh</td>
+                <td>
+                    <div class="btn-group">
+                            
+                        
+                        <button tooltip="Modifier" (click)="openModal(updatetemplate)"
+                            class="btn btn-success"><i class="icon_pencil-edit_alt"></i></button>
+                        <button class="btn btn-danger" tooltip="Supprimer" (click)="openModal(confirmDelete)"><i
+                                class="icon_close_alt2"></i></button>
+                                
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </section>
+    </div>
+    </div>
+    <ng-template #template>
+        <form class="form-horizontal " method="get">
+            <div class="modal-header">
+                <h3 class="modal-title pull-left">Ajout d'un produit</h3>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="col-sm-3 pull-left"><label class="control-label">Réference</label></div>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                        <div class="col-sm-3 pull-left"><label class="control-label">Nom</label></div>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                        <div class="col-sm-3 pull-left"><label class="control-label">Forme</label></div>
+                    <div class="col-sm-9">
+                        <select class="form-control">
+                            <option disabled="true" selected="true">----Forme----</option>
+                            <option>Orales</option>
+                            <option>Injectables</option>
+                            <option>Dermique</option>
+                            <option>Rectales</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                        <div class="col-sm-3 pull-left"><label class="control-label">Dosage</label></div>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                        <div class="col-sm-3 pull-left"><label class="control-label">Categorie</label></div>
+                    <div class="col-sm-9">
+                        <select class="form-control">
+                            <option disabled="true" selected="true">----Categorie----</option>
+                            <option>from DB</option>
+                            <option>From db</option>
+                            </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                        <div class="col-sm-3 pull-left">
+                    <label class="control-label">Quantité</label></div>
+                    <div class="col-sm-9">
+                        <input type="number" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                        <div class="col-sm-3 pull-left">
+                    <label class="control-label">Date de production</label>
+                        </div>
+                    <div class="col-sm-9">
+                        <input type="date" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                        <div class="col-sm-3 pull-left"><label class="control-label">Date d'expiration</label></div>
+                    <div class="col-sm-9">
+                        <input type="date" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                        <div class="col-sm-3 pull-left">
+                    <label class="control-label">Prix</label>
+                        </div>
+                    <div class="col-sm-9">
+                        <input type="number" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success pull-left">Ajouter</button>
+                <button type="button" class="btn btn-danger" (click)="modalRef.hide()">Annuler</button>
+    
+            </div>
+        </form>
+    </ng-template>
+    
+    <ng-template #updatetemplate>
+            <form class="form-horizontal " method="get">
+                    <div class="modal-header">
+                        <h3 class="modal-title pull-left">Modification du produit product1</h3>
+                        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="col-sm-3 pull-left"><label class="control-label">Réference</label></div>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                                <div class="col-sm-3 pull-left"><label class="control-label">Nom</label></div>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                                <div class="col-sm-3 pull-left"><label class="control-label">Forme</label></div>
+                            <div class="col-sm-9">
+                                <select class="form-control">
+                                    <option disabled="true" selected="true">----Forme----</option>
+                                    <option>Orales</option>
+                                    <option>Injectables</option>
+                                    <option>Dermique</option>
+                                    <option>Rectales</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                                <div class="col-sm-3 pull-left"><label class="control-label">Dosage</label></div>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                                <div class="col-sm-3 pull-left"><label class="control-label">Categorie</label></div>
+                            <div class="col-sm-9">
+                                <select class="form-control">
+                                    <option disabled="true" selected="true">----Categorie----</option>
+                                    <option>from DB</option>
+                                    <option>From db</option>
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                                <div class="col-sm-3 pull-left">
+                            <label class="control-label">Quantité</label></div>
+                            <div class="col-sm-9">
+                                <input type="number" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                                <div class="col-sm-3 pull-left">
+                            <label class="control-label">Date de production</label>
+                                </div>
+                            <div class="col-sm-9">
+                                <input type="date" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                                <div class="col-sm-3 pull-left"><label class="control-label">Date d'expiration</label></div>
+                            <div class="col-sm-9">
+                                <input type="date" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                                <div class="col-sm-3 pull-left">
+                            <label class="control-label">Prix</label>
+                                </div>
+                            <div class="col-sm-9">
+                                <input type="number" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success pull-left">Ajouter</button>
+                        <button type="button" class="btn btn-danger" (click)="modalRef.hide()">Annuler</button>
+            
+                    </div>
+                </form>
+    </ng-template>
+    
+    
+    
+    
+    <ng-template #confirmDelete>
+        <div class="modal-body text-center">
+            <p>Êtes-vous sûr de vouloir supprimer cet employée ?</p>
+            <button type="button" style="margin-right: 7px;" class="btn btn-default" (click)="confirm()">Oui</button>
+            <button type="button" class="btn btn-primary" (click)="modalRef.hide()">Non</button>
+        </div>
+    </ng-template>
+    
