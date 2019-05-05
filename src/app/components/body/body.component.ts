@@ -11,5 +11,8 @@ export class BodyComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  logout() {
+    localStorage.removeItem('login');
+    localStorage.removeItem('connected');
+  }
 }

@@ -4,96 +4,184 @@
       <header class="panel-heading">
         <h3>Mise à jour du profile</h3>
       </header>
+      <div style="margin-top: 30px; margin-right: 2">
+        <alert type="danger" dismissible="true" *ngIf="updateFailed">
+            <strong>Erreur!</strong> Une erreur s'est produite lors de mise à jour du profil.
+        </alert>
+        <alert type="success" dismissible="true" *ngIf="updateSuccess">
+            <strong>Succées !</strong> La mise à jour est effectué avec succés.
+        </alert>
+    </div>
       <div style="margin-left:30px;">
         <form class="form-horizontal">
           <div class="form-group">
             <div class="col-sm-3 pull-left">
-              <label class="control-label">Nom</label></div>
+              <label class="control-label">Nom*</label></div>
             <div class="col-sm-6">
-              <input type="text" class="form-control">
+              <input type="text" id="nom" name="nom" class="form-control" [(ngModel)]="loggedUser.nom_emp" [ngModelOptions]="{standalone: true}" required #nom="ngModel">
+              <div *ngIf="nom.errors && (nom.dirty || nom.touched)" class="alert alert-danger">
+                <div [hidden]="!nom.errors.required">
+                Nom obligatoire!
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <div class="col-sm-3 pull-left">
+              <label class="control-label" >Prénom*</label></div>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" name="prenom" id="prenom" [(ngModel)]="loggedUser.prenom_emp" [ngModelOptions]="{standalone: true}" required #prenom="ngModel">
+              <div *ngIf="prenom.errors && (prenom.dirty || prenom.touched)" class="alert alert-danger">
+                <div [hidden]="!prenom.errors.required">
+                Prénom obligatoire!
+                </div>
+              </div>
             </div>
           </div>
           <div class="form-group">
             <div class="col-sm-3 pull-left">
-              <label class="control-label">Prénom</label></div>
+              <label class="control-label">Date de naissance*</label></div>
             <div class="col-sm-6">
-              <input type="text" class="form-control">
+              <input type="date" id="date_naiss" nom="date_naiss" class="form-control" [(ngModel)]="loggedUser.date_naiss_emp" [ngModelOptions]="{standalone: true}" required #date_naiss="ngModel">
+              <div *ngIf="date_naiss.errors && (date_naiss.dirty || date_naiss.touched)" class="alert alert-danger">
+                <div [hidden]="!date_naiss.errors.required">
+                Date de naissance obligatoire!
+                </div>
+              </div>
             </div>
           </div>
           <div class="form-group">
             <div class="col-sm-3 pull-left">
-              <label class="control-label">Date de naissance</label></div>
-            <div class="col-sm-6">
-              <input type="date" class="form-control">
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-3 pull-left">
-              <label class="control-label">Sexe</label>
+              <label class="control-label">Sexe*</label>
             </div>
             <div class="col-sm-6">
-              <select class="form-control">
-                <option selected="true" disabled="true">Selectionner votre genre</option>
-                <option>Homme</option>
-                <option>Femme</option>
+              <select class="form-control" name="sexe" id="sexe" [(ngModel)]="loggedUser.sexe_emp" [ngModelOptions]="{standalone: true}" required #sexe="ngModel">
+                <option selected="true" disabled="true">Selectionnez votre genre</option>
+                <option value="Homme">Homme</option>
+                <option value="Femme">Femme</option>
               </select>
+              <div *ngIf="sexe.errors && (sexe.dirty || sexe.touched)" class="alert alert-danger">
+                <div [hidden]="!sexe.errors.required">
+                Sexe obligatoire!
+                </div>
+              </div>
             </div>
           </div>
           <div class="form-group">
             <div class="col-sm-3 pull-left">
-              <label class="control-label">Email</label>
+              <label class="control-label">Email*</label>
             </div>
             <div class="col-sm-6">
-              <input type="text" class="form-control">
+              <input type="text" class="form-control" [(ngModel)]="loggedUser.email_emp" [ngModelOptions]="{standalone: true}" name="email" id="email" required #email="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+              <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
+                <div [hidden]="!email.errors.required">
+                Email obligatoire!
+                </div>
+                <div [hidden]="!email.errors.pattern"> 
+                Email invalide!!
+                </div>
+              </div>
             </div>
           </div>
           <div class="form-group">
             <div class="col-sm-3 pull-left">
-              <label class="control-label">Adresse</label>
+              <label class="control-label">Adresse*</label>
             </div>
             <div class="col-sm-6">
-              <input type="text" class="form-control">
+              <input type="text" class="form-control" [(ngModel)]="loggedUser.adresse" [ngModelOptions]="{standalone: true}" name="adresse" id="adresse" required #adresse="ngModel">
+              <div *ngIf="adresse.errors && (adresse.dirty || adresse.touched)" class="alert alert-danger">
+                <div [hidden]="!adresse.errors.required">
+                Adresse obligatoire!
+                </div>
+              </div>
             </div>
           </div>
 
           <div class="form-group">
             <div class="col-sm-3 pull-left">
-              <label class="control-label">Numéro de telephone</label>
+              <label class="control-label">Numéro de telephone*</label>
             </div>
             <div class="col-sm-6">
-              <input type="tel" class="form-control">
+              <input type="tel" class="form-control" [(ngModel)]="loggedUser.tel_emp" [ngModelOptions]="{standalone: true}" minlength="8" maxlength="8" id="tel" name="tel" required #tel="ngModel">
+              <div *ngIf="tel.errors && (tel.dirty || tel.touched)" class="alert alert-danger">
+                <div [hidden]="!tel.errors.required">
+                Numéro de telephone obligatoire!
+                </div>
+                <div [hidden]="!tel.errors.minlength">
+                    Numéro de telephone doit comporter 8 chiffre!!
+                  </div> 
+              </div>
             </div>
           </div>
           <div class="form-group">
             <div class="col-sm-3 pull-left">
-              <label class="control-label">Login</label>
+              <label class="control-label">Login*</label>
             </div>
             <div class="col-sm-6">
-              <input type="text" class="form-control">
+              <input type="text" class="form-control" [(ngModel)]="loggedUser.login" [ngModelOptions]="{standalone: true}" id="login" name="login" required #login="ngModel">
+              <div *ngIf="login.errors && (login.dirty || login.touched)" class="alert alert-danger">
+                <div [hidden]="!login.errors.required">
+                Login obligatoire!
+                </div>
+              </div>
             </div>
           </div>
           <div class="form-group">
               <div class="col-sm-3 pull-left">
-          <label class="control-label">Ancien mot de passe</label>
+          <label class="control-label">Ancien mot de passe*</label>
               </div>
           <div class="col-sm-6">
-              <input type="password" class="form-control">
+              <input type="password" class="form-control" [(ngModel)]="testAnsienPwd" [ngModelOptions]="{standalone: true}" name="pwd" id="pwd" required #pwd="ngModel">
+              <!-- <div *ngIf="pwd.errors && (pwd.dirty || pwd.touched)" class="alert alert-danger">
+                  <div [hidden]="!pwd.errors.required">
+                  Ansien mot de passe obligatoire!
+                  </div>
+                </div> -->
+                <div *ngIf="(testAnsienPwd != ansienPwd) && (pwd.dirty || pwd.touched)" class="alert alert-danger">
+                    <div [hidden]="testAnsienPwd == ansienPwd">
+                        Mauvais mot de passe!
+                        </div>
+                  </div>
           </div>
       </div>
       <div class="form-group">
           <div class="col-sm-3 pull-left">
-      <label class="control-label">Nouveau mot de passe</label>
+      <label class="control-label" >Nouveau mot de passe*</label>
           </div>
       <div class="col-sm-6">
-          <input type="password" class="form-control">
+          <input type="password" class="form-control" [(ngModel)]="newPwd" [ngModelOptions]="{standalone: true}" minlength="8" name="npwd" id="npwd" required #npwd="ngModel">
+          <div *ngIf="npwd.errors && (npwd.dirty || npwd.touched)" class="alert alert-danger">
+              <div [hidden]="!npwd.errors.required">
+              Mot de passe obligatoire!
+              </div>
+              <div [hidden]="!npwd.errors.minlength">
+                  Mot de passe trés courte!!
+                </div>
+            </div>
+      </div>
+  </div>
+  <div class="form-group">
+      <div class="col-sm-12">
+          <input type="file" multiple name="pic" id="pic" accept="image/*"
+              (change)="handleFileSelectUpdate($event)" required />
+          <label id="upload-photo-label" for="pic">PHOTO</label>
+      </div>
+  </div>
+  <div class="form-group">
+      <div class="col-sm-10">
+          <img *ngIf="url" [src]="url" id="img" height="200">
+          <img *ngIf="!url" src="data:image/jpg;base64,{{ loggedUser.photo }}" height="200">
       </div>
   </div>
           <div class="form-group">
             <div class="col-sm-3 pull-left"></div>
             <div class="col-sm-6">
               <div class="pull-right">
-                <button type="submit" class="btn btn-success pull-left" style="margin-right: 10px;">Modifier</button>
-                <button type="button" class="btn btn-danger" (click)="modalRef.hide()">Annuler</button>
+                <button type="submit" class="btn btn-success pull-left" style="margin-right: 10px;" (click)="updateMyData()"
+                [disabled]="nom.errors||prenom.errors||date_naiss.errors||sexe.errors||email.errors||tel.errors||login.errors
+                ||pwd.errors||adresse.errors||npwd.errors||testAnsienPwd != ansienPwd">Modifier</button>
+                <!-- <button type="button" class="btn btn-danger" (click)="cancelUpdate()">Annuler</button> -->
               </div>
             </div>
           </div>

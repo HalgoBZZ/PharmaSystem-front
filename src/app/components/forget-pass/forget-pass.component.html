@@ -1,0 +1,29 @@
+<div class="login-img3-body" id="body">
+
+  <div class="container">
+    <form class="login-form" >        
+      <div class="login-wrap" style="padding-bottom: 70px; padding-top: 70px;">
+          <!-- <p class="login-img"><i class="icon_lock_alt"></i></p> -->
+          <p style="color: red;" *ngIf="errorInfo">Vérifiez vos données!!</p>
+          <div class="input-group">
+            <span class="input-group-addon"><i class="icon_profile"></i></span>
+            <input type="text" class="form-control" placeholder="Login" autofocus [(ngModel)]="login"
+            [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="input-group" style="margin-top:15px;">
+              <span class="input-group-addon"><i class="icon_mail"></i></span>
+              <input type="text" class="form-control" placeholder="Email" [(ngModel)]="email"
+              [ngModelOptions]="{standalone: true}">
+          </div>
+          <button class="btn btn-info btn-lg btn-block" style="margin-top:15px;" (click)="getCode()">Envoyer</button>
+          <!-- <span class="pull-right" style="margin-top:5px;"> <a [routerLink]="['/forgetpass']"> Forgot Password?</a></span> -->
+      </div>
+    </form>
+
+    <div class="secondpart text-right">
+        <div class="credits">
+            
+        </div>
+    </div>
+</div>
+</div>

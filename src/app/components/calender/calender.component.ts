@@ -3,6 +3,8 @@ import {CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, Cale
 import {startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours} from 'date-fns';
 import { Subject } from 'rxjs';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { EmployesService } from 'src/app/services/employes.service';
+import { Router } from '@angular/router';
 
 
 const colors: any = {
@@ -28,6 +30,7 @@ const colors: any = {
   styleUrls: ['./calender.component.css']
 })
 export class CalenderComponent implements OnInit {
+  loggedUser;
   modalContent: TemplateRef<any>;
   view: CalendarView = CalendarView.Month;
   CalendarView = CalendarView;
@@ -99,9 +102,18 @@ export class CalenderComponent implements OnInit {
   activeDayIsOpen = true;
   modalRef: BsModalRef;
 
-  constructor(private modalService: BsModalService) {}
+  constructor(private modalService: BsModalService, private employeService: EmployesService, private router: Router) {}
 
   ngOnInit() {
+    const login = localStorage.getItem('login');
+    this.employeService.getByLogin(login).subscribe(data => {
+      if (data == null) {
+        this.router.navigate(['/login']);
+      }
+      this.loggedUser = data;
+    }, error => {
+      this.router.navigate(['/login']);
+    });
   }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {

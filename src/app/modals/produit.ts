@@ -1,14 +1,19 @@
+import { Categorie } from './categorie';
+import { Fournisseur } from './fournisseur';
+
 export class Produit {
-    nom;
-    forme;
-    dosage;
-    quantite;
-    date_expiration;
-    date_production;
-    prix;
-    categorie;
-    reference;
+    id_prod;
+    nom_prod;
+    ref_prod;
+    forme_prod;
+    dosage_prod;
+    qte_prod;
+    expiration;
+    prix_prod;
+    tva_prod;
     date_ajout;
     date_modification;
-
+    production_prod;
+    fournisseur: Fournisseur;
+    categorie: Categorie;
 }

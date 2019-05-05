@@ -1,8 +1,9 @@
 export class Conges {
+    id_conges;
     date_debut;
     date_fin;
-    nombre_jour;
+    cause;
     date_ajout;
     date_modification;
-    etat;
+    etat_conges;
 }

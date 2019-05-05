@@ -1,14 +1,15 @@
 export class Employee {
     photo: any;
-    nom;
-    prenom;
-    date_naissance;
-    email;
-    sexe;
+    nom_emp;
+    prenom_emp;
+    date_naiss_emp;
+    email_emp;
+    sexe_emp;
     adresse;
-    tel;
+    tel_emp;
     login;
     pwd;
+    role_emp;
     date_ajout;
     date_modification;
 }

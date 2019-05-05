@@ -13,6 +13,9 @@ import { CaisseComponent } from './components/caisse/caisse.component';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { MonProfilComponent } from './components/mon-profil/mon-profil.component';
 import { CalenderComponent } from './components/calender/calender.component';
+import { ForgetPassComponent } from './components/forget-pass/forget-pass.component';
+import { NewPassComponent } from './components/new-pass/new-pass.component';
+import { CodeVerificationComponent } from './components/code-verification/code-verification.component';
 
 
 
@@ -20,6 +23,9 @@ import { CalenderComponent } from './components/calender/calender.component';
 const appRoutes: Routes = [
 { path: '', redirectTo: '/login', pathMatch: 'full'},
 { path: 'login', component: LoginComponent },
+{ path: 'forgetpass', component: ForgetPassComponent },
+{ path: 'newpass', component: NewPassComponent },
+{ path: 'verifcode', component: CodeVerificationComponent },
 {path: 'principal', component: PrincipalComponent, children: [
     { path: 'fournisseurs', component: FournisseursComponent, outlet: 'child1' },
     { path: 'employees', component: EmployeesComponent, outlet: 'child1' },

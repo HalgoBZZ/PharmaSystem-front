@@ -27,6 +27,18 @@ import { MonProfilComponent } from './components/mon-profil/mon-profil.component
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { CalenderComponent } from './components/calender/calender.component';
+import { CategoriesService } from './services/categories.service';
+import { ClientsService } from './services/clients.service';
+import { CongesService } from './services/conges.service';
+import { EmployesService } from './services/employes.service';
+import { FacturesService } from './services/factures.service';
+import { FournisseursService } from './services/fournisseurs.service';
+import { ProduitsService } from './services/produits.service';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { ForgetPassComponent } from './components/forget-pass/forget-pass.component';
+import { CodeVerificationComponent } from './components/code-verification/code-verification.component';
+import { NewPassComponent } from './components/new-pass/new-pass.component';
 // import { FlatpickrModule } from 'angularx-flatpickr';
 
 
@@ -50,13 +62,18 @@ import { CalenderComponent } from './components/calender/calender.component';
     CaisseComponent,
     CategoriesComponent,
     MonProfilComponent,
-    CalenderComponent
+    CalenderComponent,
+    ForgetPassComponent,
+    CodeVerificationComponent,
+    NewPassComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     routing,
     ChartModule,
+    HttpClientModule,
+    FormsModule,
     ModalModule.forRoot(),
     TooltipModule.forRoot(),
     AlertModule.forRoot(),
@@ -66,7 +83,8 @@ import { CalenderComponent } from './components/calender/calender.component';
       useFactory: adapterFactory
     })
   ],
-  providers: [],
+  providers: [CategoriesService, ClientsService, CongesService, EmployesService,
+  FacturesService, FournisseursService, ProduitsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

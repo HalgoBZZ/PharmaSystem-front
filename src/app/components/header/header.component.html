@@ -11,9 +11,9 @@
         <!--  search form start -->
         <ul class="nav top-menu">
             <li>
-                <form class="navbar-form">
+                <!-- <form class="navbar-form">
                     <input class="form-control" placeholder="Search" type="text">
-                </form>
+                </form> -->
             </li>
         </ul>
         <!--  search form end -->
@@ -90,9 +90,11 @@
             <li class="dropdown">
                 <a data-toggle="dropdown" class="dropdown-toggle" href="#" >
                     <span class="profile-ava">
-                        <img alt="" src="../../../assets/img/avatar1_small.jpg">
+                        <!-- <img alt="" src="../../../assets/img/avatar1_small.jpg"> -->
+                        <img src="data:image/jpg;base64,{{ loggedUser.photo }}"  style="width:30px; height:30px;">
+                        <img src="../../../assets/img/person-placeholder.jpg" *ngIf="!loggedUser.photo" style="width:30px; height:30px;">
                     </span>
-                    <span class="username">connected user</span>
+                    <span class="username">{{loggedUser.prenom_emp}} {{loggedUser.nom_emp}}</span>
                     <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu extended logout">
@@ -100,8 +102,8 @@
                     <li class="eborder-top">
                         <a [routerLink]="['/principal', {outlets: {child1: ['profil']}}]"><i class="icon_profile"></i> Mon profile</a>
                     </li>
-                    <li>
-                        <a (click)="logout()"><i class="icon_key_alt"></i>Deconnexion</a>
+                    <li (click)="logout()" style="cursor: pointer;">
+                        <a><i class="icon_key_alt"></i>Deconnexion</a>
                     </li>
                 </ul>
             </li>

@@ -4,6 +4,15 @@
       <header class="panel-heading">
         <h3>Configurations</h3>
       </header>
+      <div style="margin-top: 30px; margin-right: 2">
+        
+        <alert type="danger" dismissible="true" *ngIf="errorUpdate">
+            <strong>Erreur!</strong> Une erreur s'est produite lors de mise à jour.
+        </alert>
+        <alert type="success" dismissible="true" *ngIf="configUpdated">
+            <strong>Succées !</strong> La mise à jour est effectué avec succés.
+        </alert>
+    </div>
       <div class="panel-content">
         <div class="panel panel-info" style="width: 45%; display: inline-block;">
           <div class="panel-heading">
@@ -13,10 +22,11 @@
             <table style="width: 100%;">
               <tr>
                 <td>
-              <strong>30 jours</strong> 
+              <strong>{{config[0].expiration}} jours</strong> 
+              
               </td>
               <td style="float: right;">
-              <button  tooltip="Modifier" (click)="openModal(updatetemplate1)" class="btn btn-success"><i
+              <button  tooltip="Modifier" (click)="openExpirationModal(updatetemplate1)" class="btn btn-success"><i
                   class="icon_pencil-edit_alt"></i></button>
           </td>
           </tr>
@@ -32,10 +42,11 @@
               <table style="width: 100%;">
                 <tr>
                   <td>
-                <strong>40 piece</strong> 
+                <strong >{{config[0].seuil_qte}} pieces</strong> 
+                <!-- <strong *ngIf="!config[0]">0 pieces</strong> -->
                 </td>
                 <td style="float: right;">
-                <button  tooltip="Modifier" (click)="openModal(updatetemplate2)" class="btn btn-success"><i
+                <button  tooltip="Modifier" (click)="openSeuilModal(updatetemplate2)" class="btn btn-success"><i
                     class="icon_pencil-edit_alt"></i></button>
             </td>
             </tr>
@@ -59,12 +70,13 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">Nombre de jours </label>
                 <div class="col-sm-9">
-                    <input type="number" class="form-control">
+                    <input type="number" class="form-control" [(ngModel)]="expiration"
+                    [ngModelOptions]="{standalone: true}">
                 </div>
             </div>
         </div>
         <div class="modal-footer">
-            <button type="submit" class="btn btn-success pull-left">Modifier</button>
+            <button type="submit" class="btn btn-success pull-left" (click)="updateExpiration()">Modifier</button>
             <button type="button" class="btn btn-danger" (click)="modalRef.hide()">Annuler</button>
 
         </div>
@@ -83,12 +95,13 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">Nombre de piéce </label>
                 <div class="col-sm-9">
-                    <input type="number" class="form-control">
+                    <input type="number" class="form-control" [(ngModel)]="seuil_qte"
+                    [ngModelOptions]="{standalone: true}">
                 </div>
             </div>
         </div>
         <div class="modal-footer">
-            <button type="submit" class="btn btn-success pull-left">Modifier</button>
+            <button type="submit" class="btn btn-success pull-left" (click)="updateQteSeuil()">Modifier</button>
             <button type="button" class="btn btn-danger" (click)="modalRef.hide()">Annuler</button>
 
         </div>
