@@ -19,6 +19,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { ChartModule } from 'angular-highcharts';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { HighchartsChartComponent } from 'highcharts-angular';
 import { ConfigurationsComponent } from './components/configurations/configurations.component';
 import { CaisseComponent } from './components/caisse/caisse.component';
@@ -39,6 +40,39 @@ import { FormsModule } from '@angular/forms';
 import { ForgetPassComponent } from './components/forget-pass/forget-pass.component';
 import { CodeVerificationComponent } from './components/code-verification/code-verification.component';
 import { NewPassComponent } from './components/new-pass/new-pass.component';
+import { FilterNomEmployePipe } from './pipes/filter-nom-employe.pipe';
+import { FilterPrenomEmployePipe } from './pipes/filter-prenom-employe.pipe';
+import { FilterDateNaissEmployePipe } from './pipes/filter-date-naiss-employe.pipe';
+import { FilterEmailEmployePipe } from './pipes/filter-email-employe.pipe';
+import { FilterAdresseEmployePipe } from './pipes/filter-adresse-employe.pipe';
+import { FilterTelEmployePipe } from './pipes/filter-tel-employe.pipe';
+import { FilterRoleEmployePipe } from './pipes/filter-role-employe.pipe';
+import { FilterSexeEmployePipe } from './pipes/filter-sexe-employe.pipe';
+import { FilterReferenceProdPipe } from './pipes/filter-reference-prod.pipe';
+import { FilterFormeProdPipe } from './pipes/filter-forme-prod.pipe';
+import { FilterDosageProdPipe } from './pipes/filter-dosage-prod.pipe';
+import { FilterNomProdPipe } from './pipes/filter-nom-prod.pipe';
+import { FilterCategorieProdPipe } from './pipes/filter-categorie-prod.pipe';
+import { FilterQuantiteProdPipe } from './pipes/filter-quantite-prod.pipe';
+import { FilterProductionProdPipe } from './pipes/filter-production-prod.pipe';
+import { FilterExpirationProdPipe } from './pipes/filter-expiration-prod.pipe';
+import { FilterPrixProdPipe } from './pipes/filter-prix-prod.pipe';
+import { FilterFournisseurProdPipe } from './pipes/filter-fournisseur-prod.pipe';
+import { FilterNomCategoriePipe } from './pipes/filter-nom-categorie.pipe';
+import { FilterAjoutCategoriePipe } from './pipes/filter-ajout-categorie.pipe';
+import { FilterModificationCategoriePipe } from './pipes/filter-modification-categorie.pipe';
+import { FilterModificationFournisseurPipe } from './pipes/filter-modification-fournisseur.pipe';
+import { FilterAjoutFournisseurPipe } from './pipes/filter-ajout-fournisseur.pipe';
+import { FilterNomFournisseurPipe } from './pipes/filter-nom-fournisseur.pipe';
+import { FilterEmailFournisseurPipe } from './pipes/filter-email-fournisseur.pipe';
+import { FilterAdresseFournisseurPipe } from './pipes/filter-adresse-fournisseur.pipe';
+import { FilterTelFournisseurPipe } from './pipes/filter-tel-fournisseur.pipe';
+import { FilterDebutCongePipe } from './pipes/filter-debut-conge.pipe';
+import { FilterFinCongePipe } from './pipes/filter-fin-conge.pipe';
+import { FilterCauseCongePipe } from './pipes/filter-cause-conge.pipe';
+import { FilterAjoutCongePipe } from './pipes/filter-ajout-conge.pipe';
+import { FilterModificationCongePipe } from './pipes/filter-modification-conge.pipe';
+import { FilterEtatCongePipe } from './pipes/filter-etat-conge.pipe';
 // import { FlatpickrModule } from 'angularx-flatpickr';
 
 
@@ -65,7 +99,40 @@ import { NewPassComponent } from './components/new-pass/new-pass.component';
     CalenderComponent,
     ForgetPassComponent,
     CodeVerificationComponent,
-    NewPassComponent
+    NewPassComponent,
+    FilterNomEmployePipe,
+    FilterPrenomEmployePipe,
+    FilterDateNaissEmployePipe,
+    FilterEmailEmployePipe,
+    FilterAdresseEmployePipe,
+    FilterTelEmployePipe,
+    FilterRoleEmployePipe,
+    FilterSexeEmployePipe,
+    FilterReferenceProdPipe,
+    FilterFormeProdPipe,
+    FilterDosageProdPipe,
+    FilterNomProdPipe,
+    FilterCategorieProdPipe,
+    FilterQuantiteProdPipe,
+    FilterProductionProdPipe,
+    FilterExpirationProdPipe,
+    FilterPrixProdPipe,
+    FilterFournisseurProdPipe,
+    FilterNomCategoriePipe,
+    FilterAjoutCategoriePipe,
+    FilterModificationCategoriePipe,
+    FilterModificationFournisseurPipe,
+    FilterAjoutFournisseurPipe,
+    FilterNomFournisseurPipe,
+    FilterEmailFournisseurPipe,
+    FilterAdresseFournisseurPipe,
+    FilterTelFournisseurPipe,
+    FilterDebutCongePipe,
+    FilterFinCongePipe,
+    FilterCauseCongePipe,
+    FilterAjoutCongePipe,
+    FilterModificationCongePipe,
+    FilterEtatCongePipe
   ],
   imports: [
     BrowserModule,
@@ -74,6 +141,7 @@ import { NewPassComponent } from './components/new-pass/new-pass.component';
     ChartModule,
     HttpClientModule,
     FormsModule,
+    TypeaheadModule.forRoot(),
     ModalModule.forRoot(),
     TooltipModule.forRoot(),
     AlertModule.forRoot(),

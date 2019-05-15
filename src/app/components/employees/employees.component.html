@@ -36,47 +36,57 @@
                         <th>Photo</th>
                         <th>
                             <ng-container *ngIf="!filter">Nom</ng-container>
-                            <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Nom">
+                            <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Nom"
+                                    [(ngModel)]="nom_field" [value]="nom_field">
                             </ng-container>
                         </th>
                         <th>
                             <ng-container *ngIf="!filter">Prenom</ng-container>
-                            <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Prénom">
+                            <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Prénom"
+                                    [(ngModel)]="prenom_field" [value]="prenom_field">
                             </ng-container>
                         </th>
                         <th>
                             <ng-container *ngIf="!filter">Date de naissance</ng-container>
                             <ng-container *ngIf="filter"><input type="text" class="form-control"
+                                    [(ngModel)]="date_naiss_field" [value]="date_naiss_field"
                                     placeholder="Date de naissance"></ng-container>
                         </th>
                         <th>
                             <ng-container *ngIf="!filter">Email</ng-container>
-                            <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Email">
+                            <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Email"
+                                    [(ngModel)]="email_field" [value]="email_field">
                             </ng-container>
                         </th>
                         <th>
                             <ng-container *ngIf="!filter">Adresse</ng-container>
-                            <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Adresse">
+                            <ng-container *ngIf="filter"><input type="text" name="adress_field" class="form-control"
+                                    placeholder="Adresse" [(ngModel)]="adress_field" [value]="adress_field">
                             </ng-container>
                         </th>
                         <th>
                             <ng-container *ngIf="!filter">Telphone</ng-container>
-                            <ng-container *ngIf="filter"><input type="text" class="form-control"
-                                    placeholder="Telephone"></ng-container>
+                            <ng-container *ngIf="filter"><input type="text" class="form-control" [(ngModel)]="tel_field"
+                                    [value]="tel_field" placeholder="Telephone"></ng-container>
                         </th>
                         <th>
                             <ng-container *ngIf="!filter">Poste</ng-container>
-                            <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Poste">
+                            <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Poste"
+                                    [(ngModel)]="role_field" [value]="role_field">
                             </ng-container>
                         </th>
                         <th>
                             <ng-container *ngIf="!filter">Sexe</ng-container>
-                            <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Login">
+                            <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Sexe"
+                                    [(ngModel)]="sexe_field" [value]="sexe_field">
                             </ng-container>
                         </th>
                         <th style="min-width: 5%;">Action</th>
                     </tr>
-                    <tr *ngFor="let employee of employees; let i = index">
+                    <tr *ngFor="let employee of employees| filterAdresseEmploye : adress_field
+                    |filterDateNaissEmploye: date_naiss_field | filterNomEmploye: nom_field|filterPrenomEmploye: prenom_field 
+                   |filterTelEmploye: tel_field |filterRoleEmploye: role_field 
+                    |filterSexeEmploye: sexe_field; let i = index">
                         <td>
                             <div class="follow-ava">
                                 <img src="data:image/jpg;base64,{{ employee.photo }}" *ngIf="employee.photo"
@@ -131,166 +141,184 @@
                     <input type="text" class="form-control" [(ngModel)]="newEmployee.nom_emp" id="nom" name="nom"
                         required #nom="ngModel" [ngModelOptions]="{standalone: true}">
                     <div *ngIf="nom.errors && (nom.dirty || nom.touched)" class="alert alert-danger">
-                    <div [hidden]="!nom.errors.required">
-                        Nom obligatoire!
+                        <div [hidden]="!nom.errors.required">
+                            Nom obligatoire!
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-4 pull-left">
-                <label class="control-label">Prénom*</label></div>
-            <div class="col-sm-8">
-                <input type="text" class="form-control" [(ngModel)]="newEmployee.prenom_emp"
-                    [ngModelOptions]="{standalone: true}" name="prenom" id="prenom" required #prenom="ngModel">
-                <div *ngIf="prenom.errors && (prenom.dirty || prenom.touched)" class="alert alert-danger">
-                    <div [hidden]="!prenom.errors.required">
-                        Prénom obligatoire!
+            <div class="form-group">
+                <div class="col-sm-4 pull-left">
+                    <label class="control-label">Prénom*</label></div>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" [(ngModel)]="newEmployee.prenom_emp"
+                        [ngModelOptions]="{standalone: true}" name="prenom" id="prenom" required #prenom="ngModel">
+                    <div *ngIf="prenom.errors && (prenom.dirty || prenom.touched)" class="alert alert-danger">
+                        <div [hidden]="!prenom.errors.required">
+                            Prénom obligatoire!
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-4 pull-left">
-                <label class="control-label">Date de naissance*</label></div>
-            <div class="col-sm-8">
-                <input type="date" class="form-control" [(ngModel)]="newEmployee.date_naiss_emp"
-                    [ngModelOptions]="{standalone: true}" id="date_naiss" nom="date_naiss" required
-                    #date_naiss="ngModel">
-                <div *ngIf="date_naiss.errors && (date_naiss.dirty || date_naiss.touched)" class="alert alert-danger">
-                    <div [hidden]="!date_naiss.errors.required">
-                        Date de naissance obligatoire!
+            <div class="form-group">
+                <div class="col-sm-4 pull-left">
+                    <label class="control-label">Date de naissance*</label></div>
+                <div class="col-sm-8">
+                    <input type="date" class="form-control" [(ngModel)]="newEmployee.date_naiss_emp"
+                        [ngModelOptions]="{standalone: true}" id="date_naiss" nom="date_naiss" required
+                        #date_naiss="ngModel">
+                    <div *ngIf="date_naiss.errors && (date_naiss.dirty || date_naiss.touched)"
+                        class="alert alert-danger">
+                        <div [hidden]="!date_naiss.errors.required">
+                            Date de naissance obligatoire!
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-4 pull-left">
-                <label class="control-label">Sexe*</label></div>
-            <div class="col-sm-8">
-                <select type="date" class="form-control" [(ngModel)]="newEmployee.sexe_emp"
-                    [ngModelOptions]="{standalone: true}" name="sexe" id="sexe" required #sexe="ngModel">
-                    <option selected="true" disabled="true">Selectionnez genre</option>
-                    <option value="Homme">Homme</option>
-                    <option value="Femme">Femme</option>
-                </select>
-                <div *ngIf="sexe.errors && (sexe.dirty || sexe.touched)" class="alert alert-danger">
-                    <div [hidden]="!sexe.errors.required">
-                        Sexe obligatoire!
+            <div class="form-group">
+                <div class="col-sm-4 pull-left">
+                    <label class="control-label">Sexe*</label></div>
+                <div class="col-sm-8">
+                    <select type="date" class="form-control" [(ngModel)]="newEmployee.sexe_emp"
+                        [ngModelOptions]="{standalone: true}" name="sexe" id="sexe" required #sexe="ngModel">
+                        <option selected="true" disabled="true">Selectionnez genre</option>
+                        <option value="Homme">Homme</option>
+                        <option value="Femme">Femme</option>
+                    </select>
+                    <div *ngIf="sexe.errors && (sexe.dirty || sexe.touched)" class="alert alert-danger">
+                        <div [hidden]="!sexe.errors.required">
+                            Sexe obligatoire!
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-4 pull-left">
-                <label class="control-label">Email*</label></div>
-            <div class="col-sm-8">
-                <input type="email" class="form-control" [(ngModel)]="newEmployee.email_emp"
-                    [ngModelOptions]="{standalone: true}" name="email" id="email" required #email="ngModel"
-                    pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
-                <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
-                    <div [hidden]="!email.errors.required">
-                        Email obligatoire!
-                    </div>
-                    <div [hidden]="!email.errors.pattern">
-                        Email invalide!!
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-4 pull-left">
-                <label class="control-label">Adresse*</label>
-            </div>
-            <div class="col-sm-8">
-                <input type="text" class="form-control" [(ngModel)]="newEmployee.adresse"
-                    [ngModelOptions]="{standalone: true}" name="adresse" id="adresse" required #adresse="ngModel">
-                <div *ngIf="adresse.errors && (adresse.dirty || adresse.touched)" class="alert alert-danger">
-                    <div [hidden]="!nom.errors.required">
-                        Adresse obligatoire!
+            <div class="form-group">
+                <div class="col-sm-4 pull-left">
+                    <label class="control-label">Email*</label></div>
+                <div class="col-sm-8">
+                    <input type="email" class="form-control" [(ngModel)]="newEmployee.email_emp"
+                        [ngModelOptions]="{standalone: true}" name="email" id="email" required #email="ngModel"
+                        pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                    <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
+                        <div [hidden]="!email.errors.required">
+                            Email obligatoire!
+                        </div>
+                        <div [hidden]="!email.errors.pattern">
+                            Email invalide!!
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-4 pull-left">
-                <label class="control-label">Numéro de telephone*</label>
-            </div>
-            <div class="col-sm-8">
-                <input type="tel" class="form-control" [(ngModel)]="newEmployee.tel_emp"
-                    [ngModelOptions]="{standalone: true}" minlength="8" maxlength="8" id="tel" name="tel" required
-                    #tel="ngModel">
-                <div *ngIf="tel.errors && (tel.dirty || tel.touched)" class="alert alert-danger">
-                    <div [hidden]="!tel.errors.required">
-                        Numéro de telephone obligatoire!
-                    </div>
-                    <div [hidden]="!tel.errors.minlength">
-                        Numéro de telephone doit étre comporter 8 chiffre!!
+            <div class="form-group">
+                <div class="col-sm-4 pull-left">
+                    <label class="control-label">Adresse*</label>
+                </div>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" [(ngModel)]="newEmployee.adresse"
+                        [ngModelOptions]="{standalone: true}" name="adresse" id="adresse" required #adresse="ngModel">
+                    <div *ngIf="adresse.errors && (adresse.dirty || adresse.touched)" class="alert alert-danger">
+                        <div [hidden]="!nom.errors.required">
+                            Adresse obligatoire!
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-4 pull-left">
-                <label class="control-label">Login*</label></div>
-            <div class="col-sm-8">
-                <input type="text" class="form-control" [(ngModel)]="newEmployee.login"
-                    [ngModelOptions]="{standalone: true}" id="login" name="login" required #login="ngModel">
-                <div *ngIf="login.errors && (login.dirty || login.touched)" class="alert alert-danger">
-                    <div [hidden]="!login.errors.required">
-                        Login obligatoire!
+            <div class="form-group">
+                <div class="col-sm-4 pull-left">
+                    <label class="control-label">Numéro de telephone*</label>
+                </div>
+                <div class="col-sm-8">
+                    <input type="tel" class="form-control" [(ngModel)]="newEmployee.tel_emp"
+                        [ngModelOptions]="{standalone: true}" minlength="8" maxlength="8" id="tel" name="tel" required
+                        #tel="ngModel">
+                    <div *ngIf="tel.errors && (tel.dirty || tel.touched)" class="alert alert-danger">
+                        <div [hidden]="!tel.errors.required">
+                            Numéro de telephone obligatoire!
+                        </div>
+                        <div [hidden]="!tel.errors.minlength">
+                            Numéro de telephone doit étre comporter 8 chiffre!!
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-4 pull-left">
-                <label class="control-label">Mot de passe*</label></div>
-            <div class="col-sm-8">
-                <input type="password" class="form-control" [(ngModel)]="newEmployee.pwd"
-                    [ngModelOptions]="{standalone: true}" name="pwd" id="pwd" minlength="8" required #pwd="ngModel">
-                <div *ngIf="pwd.errors && (pwd.dirty || pwd.touched)" class="alert alert-danger">
-                    <div [hidden]="!pwd.errors.required && !pwd.errors.minlength">
+            <div class="form-group">
+                <div class="col-sm-4 pull-left">
+                    <label class="control-label">Role*</label></div>
+                <div class="col-sm-8">
+                    <select type="date" class="form-control" [(ngModel)]="newEmployee.role_emp"
+                        [ngModelOptions]="{standalone: true}" name="role" id="role" required #role="ngModel">
+                        <option selected="true" disabled="true">Selectionnez role</option>
+                        <option value="Adminstrateur">Administrateur</option>
+                        <option value="Pharmacien">Pharmacien</option>
+                        <option value="Caissier">Caissier</option>
+                    </select>
+                    <div *ngIf="role.errors && (role.dirty || role.touched)" class="alert alert-danger">
+                        <div [hidden]="!role.errors.required">
+                            Role obligatoire!
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-4 pull-left">
+                    <label class="control-label">Login*</label></div>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" [(ngModel)]="newEmployee.login"
+                        [ngModelOptions]="{standalone: true}" id="login" name="login" required #login="ngModel">
+                    <div *ngIf="login.errors && (login.dirty || login.touched)" class="alert alert-danger">
+                        <div [hidden]="!login.errors.required">
+                            Login obligatoire!
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-4 pull-left">
+                    <label class="control-label">Mot de passe*</label></div>
+                <div class="col-sm-8">
+                    <input type="password" class="form-control" [(ngModel)]="newEmployee.pwd"
+                        [ngModelOptions]="{standalone: true}" name="pwd" id="pwd" minlength="8" required #pwd="ngModel">
+                    <div *ngIf="pwd.errors && (pwd.dirty || pwd.touched)" class="alert alert-danger">
+                        <div [hidden]="!pwd.errors.required && !pwd.errors.minlength">
                             Mot de passe trés courte!!
-                    </div>
-                    <!-- <div [hidden]="!pwd.errors.minlength">
-                        Mot de passe trés courte!!
-                    </div> -->
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-4 pull-left">
-                <label class="control-label">Confirmer Mot de passe</label>
-            </div>
-            <div class="col-sm-8">
-                <input type="password" class="form-control" [(ngModel)]="confirmationpwd"
-                    [ngModelOptions]="{standalone: true}"  name="cpwd" id="cpwd" minlength="8" required #cpwd="ngModel">
-                <div *ngIf="(confirmationpwd != newEmployee.pwd) && (cpwd.dirty || cpwd.touched)"
-                    class="alert alert-danger">
-                    <div [hidden]="cpwd == newEmployee.pwd">
-                        Mauvaise confirmation!
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-12">
-                <input type="file" multiple name="pic" id="pic" accept="image/*" (change)="handleFileSelect($event)"
-                    required />
-                <label id="upload-photo-label" for="pic">PHOTO</label>
+            <div class="form-group">
+                <div class="col-sm-4 pull-left">
+                    <label class="control-label">Confirmer Mot de passe</label>
+                </div>
+                <div class="col-sm-8">
+                    <input type="password" class="form-control" [(ngModel)]="confirmationpwd"
+                        [ngModelOptions]="{standalone: true}" name="cpwd" id="cpwd" minlength="8" required
+                        #cpwd="ngModel">
+                    <div *ngIf="(confirmationpwd != newEmployee.pwd) && (cpwd.dirty || cpwd.touched)"
+                        class="alert alert-danger">
+                        <div [hidden]="cpwd == newEmployee.pwd">
+                            Mauvaise confirmation!
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-10">
-                <img *ngIf="url" [src]="url" id="img" height="200">
-                <img *ngIf="!url" src="../../../assets/img/person-placeholder.jpg">
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <input type="file" multiple name="pic" id="pic" accept="image/*" (change)="handleFileSelect($event)"
+                        required />
+                    <label id="upload-photo-label" for="pic">PHOTO</label>
+                </div>
             </div>
-        </div>
+            <div class="form-group">
+                <div class="col-sm-10">
+                    <img *ngIf="url" [src]="url" id="img" height="200">
+                    <img *ngIf="!url" src="../../../assets/img/person-placeholder.jpg">
+                </div>
+            </div>
         </div>
         <div class="modal-footer">
-            <button type="submit" class="btn btn-success pull-left" (click)="addEmployee()" [disabled]="nom.errors||prenom.errors||date_naiss.errors||sexe.errors||email.errors||tel.errors||login.errors
-                ||pwd.errors||adresse.errors||pwd.errors||confirmationpwd != pwd">Ajouter</button>
+            <button type="submit" class="btn btn-success pull-left" (click)="addEmployee()"
+                [disabled]="nom.errors||prenom.errors||date_naiss.errors||sexe.errors||email.errors||tel.errors||login.errors
+                ||pwd.errors||adresse.errors||cpwd.errors||newEmployee.pwd != confirmationpwd||role.errors">Ajouter</button>
             <button type="button" class="btn btn-danger" (click)="modalRef.hide()">Annuler</button>
 
         </div>
@@ -300,7 +328,8 @@
 <ng-template #updatetemplate>
     <form class="form-horizontal">
         <div class="modal-header">
-            <h3 class="modal-title pull-left">Modification de l'employée {{employeToupdate.prenom_emp}} {{employeToupdate.nom_emp}}</h3>
+            <h3 class="modal-title pull-left">Modification de l'employée {{employeToupdate.prenom_emp}}
+                {{employeToupdate.nom_emp}}</h3>
             <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -312,13 +341,12 @@
                 </div>
                 <div class="col-sm-8">
                     <input type="text" class="form-control" [(ngModel)]="employeToupdate.nom_emp"
-                        [ngModelOptions]="{standalone: true}" id="nom" name="nom"
-                        required #nom="ngModel">
-                        <div *ngIf="nom.errors && (nom.dirty || nom.touched)" class="alert alert-danger">
-                                <div [hidden]="!nom.errors.required">
-                                    Champ obligatoire!
-                                </div>
-                            </div>
+                        [ngModelOptions]="{standalone: true}" id="nom" name="nom" required #nom="ngModel">
+                    <div *ngIf="nom.errors && (nom.dirty || nom.touched)" class="alert alert-danger">
+                        <div [hidden]="!nom.errors.required">
+                            Champ obligatoire!
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
@@ -326,7 +354,7 @@
                     <label class="control-label">Prénom*</label></div>
                 <div class="col-sm-8">
                     <input type="text" class="form-control" [(ngModel)]="employeToupdate.prenom_emp"
-                    [ngModelOptions]="{standalone: true}" name="prenom" id="prenom" required #prenom="ngModel">
+                        [ngModelOptions]="{standalone: true}" name="prenom" id="prenom" required #prenom="ngModel">
                     <div *ngIf="prenom.errors && (prenom.dirty || prenom.touched)" class="alert alert-danger">
                         <div [hidden]="!prenom.errors.required">
                             Champ obligatoire!
@@ -339,13 +367,14 @@
                     <label class="control-label">Date de naissance*</label></div>
                 <div class="col-sm-8">
                     <input type="date" class="form-control" [(ngModel)]="employeToupdate.date_naiss_emp"
-                    [ngModelOptions]="{standalone: true}" id="date_naiss" nom="date_naiss" required
-                    #date_naiss="ngModel">
-                <div *ngIf="date_naiss.errors && (date_naiss.dirty || date_naiss.touched)" class="alert alert-danger">
-                    <div [hidden]="!date_naiss.errors.required">
-                        Champ obligatoire!
+                        [ngModelOptions]="{standalone: true}" id="date_naiss" nom="date_naiss" required
+                        #date_naiss="ngModel">
+                    <div *ngIf="date_naiss.errors && (date_naiss.dirty || date_naiss.touched)"
+                        class="alert alert-danger">
+                        <div [hidden]="!date_naiss.errors.required">
+                            Champ obligatoire!
+                        </div>
                     </div>
-                </div>
                 </div>
             </div>
             <div class="form-group">
@@ -353,16 +382,16 @@
                     <label class="control-label">Sexe*</label></div>
                 <div class="col-sm-8">
                     <select type="date" class="form-control" [(ngModel)]="employeToupdate.sexe_emp"
-                    [ngModelOptions]="{standalone: true}" name="sexe" id="sexe" required #sexe="ngModel">
+                        [ngModelOptions]="{standalone: true}" name="sexe" id="sexe" required #sexe="ngModel">
                         <option selected disabled="true">Selectionnez genre</option>
                         <option value="Homme">Homme</option>
                         <option value="Femme">Femme</option>
                     </select>
                     <div *ngIf="sexe.errors && (sexe.dirty || sexe.touched)" class="alert alert-danger">
-                            <div [hidden]="!sexe.errors.required">
-                                Choix obligatoire!
-                            </div>
+                        <div [hidden]="!sexe.errors.required">
+                            Choix obligatoire!
                         </div>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
@@ -370,16 +399,16 @@
                     <label class="control-label">Email*</label></div>
                 <div class="col-sm-8">
                     <input type="email" class="form-control" [(ngModel)]="employeToupdate.email_emp"
-                    [ngModelOptions]="{standalone: true}" name="email" id="email" required #email="ngModel"
-                    pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
-                <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
-                    <div [hidden]="!email.errors.required">
-                        Champ obligatoire!
+                        [ngModelOptions]="{standalone: true}" name="email" id="email" required #email="ngModel"
+                        pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                    <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
+                        <div [hidden]="!email.errors.required">
+                            Champ obligatoire!
+                        </div>
+                        <div [hidden]="!email.errors.pattern">
+                            Email invalide!!
+                        </div>
                     </div>
-                    <div [hidden]="!email.errors.pattern">
-                        Email invalide!!
-                    </div>
-                </div>
                 </div>
             </div>
             <div class="form-group">
@@ -388,7 +417,7 @@
                 </div>
                 <div class="col-sm-8">
                     <input type="text" class="form-control" [(ngModel)]="employeToupdate.adresse"
-                    [ngModelOptions]="{standalone: true}" name="adresse" id="adresse" required #adresse="ngModel">
+                        [ngModelOptions]="{standalone: true}" name="adresse" id="adresse" required #adresse="ngModel">
                     <div *ngIf="adresse.errors && (adresse.dirty || adresse.touched)" class="alert alert-danger">
                         <div [hidden]="!nom.errors.required">
                             Champ obligatoire!
@@ -402,16 +431,16 @@
                 </div>
                 <div class="col-sm-8">
                     <input type="tel" class="form-control" [(ngModel)]="employeToupdate.tel_emp"
-                    [ngModelOptions]="{standalone: true}" minlength="8" maxlength="8" id="tel" name="tel" required
-                    #tel="ngModel">
-                <div *ngIf="tel.errors && (tel.dirty || tel.touched)" class="alert alert-danger">
-                    <div [hidden]="!tel.errors.required">
-                        Champ obligatoire!
+                        [ngModelOptions]="{standalone: true}" minlength="8" maxlength="8" id="tel" name="tel" required
+                        #tel="ngModel">
+                    <div *ngIf="tel.errors && (tel.dirty || tel.touched)" class="alert alert-danger">
+                        <div [hidden]="!tel.errors.required">
+                            Champ obligatoire!
+                        </div>
+                        <div [hidden]="!tel.errors.minlength">
+                            Numéro de telephone invalide!!
+                        </div>
                     </div>
-                    <div [hidden]="!tel.errors.minlength">
-                        Numéro de telephone invalide!!
-                    </div>
-                </div>
                 </div>
             </div>
             <div class="form-group">
@@ -419,7 +448,7 @@
                     <label class="control-label">Login*</label></div>
                 <div class="col-sm-8">
                     <input type="text" class="form-control" [(ngModel)]="employeToupdate.login"
-                    [ngModelOptions]="{standalone: true}" id="login" name="login" required #login="ngModel">
+                        [ngModelOptions]="{standalone: true}" id="login" name="login" required #login="ngModel">
                     <div *ngIf="login.errors && (login.dirty || login.touched)" class="alert alert-danger">
                         <div [hidden]="!login.errors.required">
                             Champ obligatoire!
@@ -458,9 +487,8 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="submit" class="btn btn-success pull-left" (click)="updateEmployee();"
-            [disabled]="nom.errors||prenom.errors||date_naiss.errors||sexe.errors||email.errors||tel.errors||login.errors
-                ||pwd.errors||adresse.errors">Modifier</button>
+            <button type="submit" class="btn btn-success pull-left" (click)="updateEmployee();" [disabled]="nom.errors||prenom.errors||date_naiss.errors||sexe.errors||email.errors||tel.errors||login.errors
+                ||adresse.errors">Modifier</button>
             <button type="button" class="btn btn-danger" (click)="modalRef.hide()">Annuler</button>
 
         </div>
@@ -489,7 +517,7 @@
                     <div style="margin-left:20px; font-size: 14;">
                         <strong>Naissance:</strong> {{selectedEmployee.date_naiss_emp}}<br>
                         <strong>Genre:</strong> {{selectedEmployee.sexe_emp}}<br>
-                        <strong>Adresse:</strong> {{selectedEmployee.adress}}<br>
+                        <strong>Adresse:</strong> {{selectedEmployee.adresse}}<br>
                         <strong>Email:</strong> {{selectedEmployee.email_emp}}<br>
                         <strong>Numero de telephone:</strong> {{selectedEmployee.tel_emp}}<br>
                         <strong>Login:</strong> {{selectedEmployee.login}}<br>

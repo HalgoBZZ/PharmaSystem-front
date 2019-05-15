@@ -33,6 +33,15 @@ export class StockComponent implements OnInit {
   categories;
   fournisseurs;
   loggedUser;
+  ref_field;
+  nom_field;
+  forme_field;
+  dosage_field;
+  qte_field;
+  categorie_field;
+  expiration_field;
+  prix_field;
+
   testDate = new Date();
 
   constructor(private modalService: BsModalService, private produitService: ProduitsService,

@@ -91,7 +91,7 @@
                 <a data-toggle="dropdown" class="dropdown-toggle" href="#" >
                     <span class="profile-ava">
                         <!-- <img alt="" src="../../../assets/img/avatar1_small.jpg"> -->
-                        <img src="data:image/jpg;base64,{{ loggedUser.photo }}"  style="width:30px; height:30px;">
+                        <img src="data:image/jpg;base64,{{ loggedUser.photo }}" *ngIf="loggedUser.photo" style="width:30px; height:30px;">
                         <img src="../../../assets/img/person-placeholder.jpg" *ngIf="!loggedUser.photo" style="width:30px; height:30px;">
                     </span>
                     <span class="username">{{loggedUser.prenom_emp}} {{loggedUser.nom_emp}}</span>

@@ -31,6 +31,12 @@ export class CongesComponent implements OnInit {
   indexTodelete;
   conges;
   loggedUser;
+  debut_field;
+  fin_field;
+  cause_field;
+  ajout_field;
+  modification_field;
+  etat_field;
 
   constructor(private modalService: BsModalService, private congeService: CongesService,
     private employeService: EmployesService, private router: Router) { }
@@ -42,10 +48,15 @@ export class CongesComponent implements OnInit {
         this.router.navigate(['/login']);
       }
       this.loggedUser = data;
+      if (this.loggedUser.role_emp === 'Adminstrateur') {
+        this.getAll();
+      } else {
+        this.getByUser(this.loggedUser.id_emp);
+      }
     }, error => {
       this.router.navigate(['/login']);
     });
-    this.getAll();
+
     this.dataLoaded = true;
   }
   openModal(template: TemplateRef<any>) {
@@ -56,7 +67,7 @@ export class CongesComponent implements OnInit {
     this.openModal(template);
     this.congeToUpdate = conge;
   }
-  openDeleteModal(confirmDelete:  TemplateRef<any>, conge, index) {
+  openDeleteModal(confirmDelete: TemplateRef<any>, conge, index) {
     this.congeToDelete = conge;
     this.openModal(confirmDelete);
     this.indexTodelete = index;
@@ -77,10 +88,15 @@ export class CongesComponent implements OnInit {
   }
 
   addConge() {
+    this.newConge.employee = this.loggedUser;
     this.congeService.addConge(this.newConge).subscribe(result => {
       this.congeAdded = true;
       this.conges.push(this.newConge);
-      this.getAll();
+      if (this.loggedUser.role_emp === 'Adminstrateur') {
+        this.getAll();
+      } else {
+        this.getByUser(this.loggedUser.id_emp);
+      }
     }, error => {
       this.congeAdded = false;
       this.addError = true;
@@ -106,7 +122,11 @@ export class CongesComponent implements OnInit {
 
   delete(id_conj) {
     this.congeService.deleteConge(id_conj).subscribe(res => {
-      this.getAll();
+      if (this.loggedUser.role_emp === 'Adminstrateur') {
+        this.getAll();
+      } else {
+        this.getByUser(this.loggedUser.id_emp);
+      }
       this.congeDeleted = true;
       if (this.conges.length > 0) {
         this.noData = false;
@@ -119,7 +139,11 @@ export class CongesComponent implements OnInit {
   valider(conge) {
     this.congeService.valideConge(conge).subscribe(data => {
       this.congeUpdated = true;
-      this.getAll();
+      if (this.loggedUser.role_emp === 'Adminstrateur') {
+        this.getAll();
+      } else {
+        this.getByUser(this.loggedUser.id_emp);
+      }
     }, error => {
       this.updateError = false;
     });
@@ -127,10 +151,23 @@ export class CongesComponent implements OnInit {
 
   refuser(conge) {
     this.congeService.refuseConge(conge).subscribe(date => {
-      this.getAll();
+      if (this.loggedUser.role_emp === 'Adminstrateur') {
+        this.getAll();
+      } else {
+        this.getByUser(this.loggedUser.id_emp);
+      }
       this.congeUpdated = true;
     }, error => {
       this.updateError = true;
+    });
+  }
+
+  getByUser(user) {
+    this.congeService.getByUser(user).subscribe(result => {
+      this.conges = result;
+      if (this.conges.length > 0) {
+        this.noData = false;
+      }
     });
   }
 

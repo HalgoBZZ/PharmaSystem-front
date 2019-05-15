@@ -2,10 +2,10 @@
         <div class="col-lg-12">
             <section class="panel">
                 <header class="panel-heading">
-                    <h3>Mes congés: il vous reste 22 jours dans votre solde</h3>
+                    <!-- <h3>Mes congés: il vous reste 22 jours dans votre solde</h3> -->
     
                     <div style="float: right; margin-bottom: 10px;">
-                        <button class="btn btn-primary" style="margin-right: 5px;" (click)="openModal(template)">Nouveau
+                        <button class="btn btn-primary" style="margin-right: 5px;" (click)="openModal(template)" *ngIf="loggedUser.role_emp != 'Adminstrateur'">Nouveau
                             Congés</button>
                         <button class="btn btn-info" (click)="showFilter()">Filtrer<i class="fa fa-filter"
                                 aria-hidden="true"></i></button>
@@ -36,12 +36,14 @@
                         <tr>
                             <th>
                                 <ng-container *ngIf="!filter">Date de début</ng-container>
-                                <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Date de début">
+                                <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Date de début"
+                                    [(ngModel)]="debut_field" [value]="debut_field">
                                 </ng-container>
                             </th>
                             <th>
                                 <ng-container *ngIf="!filter">Date de fin</ng-container>
-                                <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Date de fin">
+                                <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Date de fin"
+                                    [(ngModel)]="fin_field" [value]="fin_field">
                                 </ng-container>
                             </th>
                             <!-- <th>
@@ -51,27 +53,31 @@
                             </th> -->
                             <th>
                                     <ng-container *ngIf="!filter">Cause</ng-container>
-                                    <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Cause">
+                                    <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Cause"
+                                        [(ngModel)]="cause_field" [value]="cause_field">
                                     </ng-container>
                                 </th>
                             <th>
                                 <ng-container *ngIf="!filter">Date d'ajout</ng-container>
-                                <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Date d'jout">
+                                <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Date d'jout"
+                                    [(ngModel)]="ajout_field" [value]="ajout_field">
                                 </ng-container>
                             </th>
                             <th>
                                 <ng-container *ngIf="!filter">Derniere modification</ng-container>
-                                <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Date de modification">
+                                <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Date de modification"
+                                    [(ngModel)]="modification_field" [value]="modification_field">
                                 </ng-container>
                             </th>
                             <th>
                                     <ng-container *ngIf="!filter">Etat</ng-container>
-                                    <ng-container *ngIf="filter"><input type="text" class="form-control"
+                                    <ng-container *ngIf="filter"><input type="text" class="form-control" [(ngModel)]="etat_field" [value]="etat_field"
                                             placeholder="Etat"></ng-container>
                                 </th>
                             <th style="min-width: 5%;">Action</th>
                         </tr>
-                        <tr *ngFor="let conge of conges; let i = index">
+                        <tr *ngFor="let conge of conges |filterAjoutConge: ajout_field|filterModificationConge: modification_field
+                        |filterEtatConge: etat_field|filterCauseConge: cause_field| filterDebutConge: debut_field|filterFinConge: fin_field; let i = index">
                             <td>{{conge.date_debut}}</td>
                             <td>{{conge.date_fin}}</td>
                             <!-- <td>{{conge.}}</td> -->
@@ -84,12 +90,12 @@
                             <td>
                                 <div class="btn-group">
                                     <button tooltip="Modifier" (click)="openUpdateModal(updatetemplate, conge)"
-                                        class="btn btn-success" *ngIf="conge.etat_conges == 'En_Attente'"><i class="icon_pencil-edit_alt"></i></button>
-                                    <button class="btn btn-danger" tooltip="Supprimer" *ngIf="conge.etat_conges == 'En_Attente'" (click)="openDeleteModal(confirmDelete, conge, i)"><i
+                                        class="btn btn-success" *ngIf="conge.etat_conges == 'En_Attente' && loggedUser.role_emp != 'Adminstrateur'"><i class="icon_pencil-edit_alt"></i></button>
+                                    <button class="btn btn-danger" tooltip="Supprimer" *ngIf="conge.etat_conges == 'En_Attente' && loggedUser.role_emp != 'Adminstrateur'" (click)="openDeleteModal(confirmDelete, conge, i)"><i
                                             class="icon_close_alt2" ></i></button>
                                             <button tooltip="Valider" (click)="valider(conge)"
-                                        class="btn btn-success" *ngIf="conge.etat_conges == 'En_Attente'"><i class="icon_check"></i></button>
-                                    <button class="btn btn-danger" (click)="refuser(conge)" tooltip="Refuser" *ngIf="conge.etat_conges == 'En_Attente'"><i
+                                        class="btn btn-success" *ngIf="conge.etat_conges == 'En_Attente' && loggedUser.role_emp == 'Adminstrateur'"><i class="icon_check"></i></button>
+                                    <button class="btn btn-danger" (click)="refuser(conge)" tooltip="Refuser" *ngIf="conge.etat_conges == 'En_Attente' && loggedUser.role_emp == 'Adminstrateur'"><i
                                             class="icon_close"></i></button>
                                 </div>
                             </td>

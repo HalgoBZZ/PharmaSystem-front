@@ -36,47 +36,54 @@
                     <tr>
                         <th>
                             <ng-container *ngIf="!filter">Réference</ng-container>
-                            <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Nom">
+                            <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Réference" [(ngModel)]="ref_field" [value]="ref_field">
                             </ng-container>
                         </th>
                         <th>
                             <ng-container *ngIf="!filter">Nom</ng-container>
-                            <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Nom">
+                            <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Nom"
+                                [(ngModel)]="nom_field" [value]="nom_field">
                             </ng-container>
                         </th>
                         <th>
                             <ng-container *ngIf="!filter">Forme</ng-container>
-                            <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Prénom">
+                            <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Forme"
+                                [(ngModel)]="forme_field" [value]="forme_field">
                             </ng-container>
                         </th>
                         <th>
                             <ng-container *ngIf="!filter">Dosage</ng-container>
                             <ng-container *ngIf="filter"><input type="text" class="form-control"
-                                    placeholder="Date de naissance"></ng-container>
+                                    placeholder="Dosage" [(ngModel)]="dosage_field" [value]="dosage_field"></ng-container>
                         </th>
                         <th>
                             <ng-container *ngIf="!filter">Quantité</ng-container>
-                            <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Email">
+                            <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Quantité"
+                                [(ngModel)]="qte_field" [value]="qte_field">
                             </ng-container>
                         </th>
                         <th>
                             <ng-container *ngIf="!filter">Categorie</ng-container>
-                            <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Poste">
+                            <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Catégorie"
+                                [(ngModel)]="categorie_field" [value]="categorie_field">
                             </ng-container>
                         </th>
                         <th>
                             <ng-container *ngIf="!filter">Date d'expiration</ng-container>
-                            <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Adresse">
+                            <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Date d'expiration"
+                                [(ngModel)]="expiration_field" [value]="expiration_field">
                             </ng-container>
                         </th>
                         <th>
                             <ng-container *ngIf="!filter">Prix</ng-container>
                             <ng-container *ngIf="filter"><input type="text" class="form-control"
-                                    placeholder="Telephone"></ng-container>
+                                    placeholder="Prix" [(ngModel)]="prix_field" [value]="prix_field"></ng-container>
                         </th>
                         <th style="min-width: 5%;">Action</th>
                     </tr>
-                    <tr *ngFor="let produit of produits; let i=index;">
+                    <tr *ngFor="let produit of produits|filterCategorieProd: categorie_field|filterReferenceProd: ref_field|
+                    filterNomProd: nom_field|filterFormeProd: forme_field|filterDosageProd: dosage_field
+                    |filterQuantiteProd: qte_field|filterExpirationProd: expiration_field|filterPrixProd: prix_field; let i=index;">
                         <td>{{produit.ref_prod}}</td>
                         <td>{{produit.nom_prod}}</td>
                         <td>{{produit.forme_prod}}</td>
@@ -100,7 +107,6 @@
                                 <button class="btn btn-danger" tooltip="Supprimer"
                                     (click)="openDeleteModal(confirmDelete, produit, i)"><i
                                         class="icon_close_alt2"></i></button>
-
                             </div>
                         </td>
                     </tr>
@@ -125,7 +131,7 @@
                 <div class="col-sm-3 pull-left"><label class="control-label">Réference*</label></div>
                 <div class="col-sm-9">
                     <input type="text" class="form-control" [(ngModel)]="newProd.ref_prod"
-                    [ngModelOptions]="{standalone: true}" name="ref" id="ref" required #ref="ngModel">
+                        [ngModelOptions]="{standalone: true}" name="ref" id="ref" required #ref="ngModel">
                     <div *ngIf="ref.errors && (ref.dirty || ref.touched)" class="alert alert-danger">
                         <div [hidden]="!ref.errors.required">
                             Champ obligatoire!
@@ -137,7 +143,7 @@
                 <div class="col-sm-3 pull-left"><label class="control-label">Nom*</label></div>
                 <div class="col-sm-9">
                     <input type="text" class="form-control" [(ngModel)]="newProd.nom_prod"
-                    [ngModelOptions]="{standalone: true}" name="nom" id="ref" required #nom="ngModel">
+                        [ngModelOptions]="{standalone: true}" name="nom" id="ref" required #nom="ngModel">
                     <div *ngIf="nom.errors && (nom.dirty || nom.touched)" class="alert alert-danger">
                         <div [hidden]="!nom.errors.required">
                             Champ obligatoire!
@@ -149,7 +155,7 @@
                 <div class="col-sm-3 pull-left"><label class="control-label">Forme*</label></div>
                 <div class="col-sm-9">
                     <select class="form-control" [(ngModel)]="newProd.forme_prod" [ngModelOptions]="{standalone: true}"
-                    name="forme" id="forme" required #forme="ngModel">
+                        name="forme" id="forme" required #forme="ngModel">
                         <option disabled="true" selected="true">----Forme----</option>
                         <option value="Orale">Orales</option>
                         <option value="Injectable">Injectables</option>
@@ -157,17 +163,17 @@
                         <option Inhalee>Inhalee</option>
                     </select>
                     <div *ngIf="forme.errors && (forme.dirty || forme.touched)" class="alert alert-danger">
-                            <div [hidden]="!forme.errors.required">
-                                Choix obligatoire!
-                            </div>
+                        <div [hidden]="!forme.errors.required">
+                            Choix obligatoire!
                         </div>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-3 pull-left"><label class="control-label">Dosage*</label></div>
                 <div class="col-sm-9">
                     <input type="text" class="form-control" [(ngModel)]="newProd.dosage_prod"
-                    [ngModelOptions]="{standalone: true}" name="dsg" id="dsg" required #dsg="ngModel">
+                        [ngModelOptions]="{standalone: true}" name="dsg" id="dsg" required #dsg="ngModel">
                     <div *ngIf="dsg.errors && (dsg.dirty || dsg.touched)" class="alert alert-danger">
                         <div [hidden]="!dsg.errors.required">
                             Champ obligatoire!
@@ -178,17 +184,17 @@
             <div class="form-group">
                 <div class="col-sm-3 pull-left"><label class="control-label">Categorie*</label></div>
                 <div class="col-sm-9">
-                    <select class="form-control" [(ngModel)]="newProd.categorie" [ngModelOptions]="{standalone: true}" 
-                    name="cat" id="cat" required #cat="ngModel">
+                    <select class="form-control" [(ngModel)]="newProd.categorie" [ngModelOptions]="{standalone: true}"
+                        name="cat" id="cat" required #cat="ngModel">
                         <option disabled="true" selected="true">----Categorie----</option>
                         <option *ngFor="let categorie of categories" [ngValue]="categorie" [selected]="categorie">
                             {{categorie.nom_cat}}</option>
                     </select>
                     <div *ngIf="cat.errors && (cat.dirty || cat.touched)" class="alert alert-danger">
-                            <div [hidden]="!cat.errors.required">
-                                Choix obligatoire!
-                            </div>
+                        <div [hidden]="!cat.errors.required">
+                            Choix obligatoire!
                         </div>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
@@ -196,7 +202,7 @@
                     <label class="control-label">Quantité*</label></div>
                 <div class="col-sm-9">
                     <input type="number" class="form-control" [(ngModel)]="newProd.qte_prod"
-                    [ngModelOptions]="{standalone: true}" name="qte" id="qte" required #qte="ngModel">
+                        [ngModelOptions]="{standalone: true}" name="qte" id="qte" required #qte="ngModel">
                     <div *ngIf="qte.errors && (qte.dirty || qte.touched)" class="alert alert-danger">
                         <div [hidden]="!qte.errors.required">
                             Champ obligatoire!
@@ -210,8 +216,9 @@
                 </div>
                 <div class="col-sm-9">
                     <input type="date" class="form-control" [(ngModel)]="newProd.production_prod"
-                    [ngModelOptions]="{standalone: true}" name="prod" id="prod" required #prod="ngModel">
-                    <div *ngIf="newProd.production_prod>testDate||(prod.errors && (prod.dirty || prod.touched))" class="alert alert-danger">
+                        [ngModelOptions]="{standalone: true}" name="prod" id="prod" required #prod="ngModel">
+                    <div *ngIf="newProd.production_prod>testDate||(prod.errors && (prod.dirty || prod.touched))"
+                        class="alert alert-danger">
                         <div [hidden]="!prod.errors.required">
                             Champ obligatoire!
                         </div>
@@ -225,7 +232,7 @@
                 <div class="col-sm-3 pull-left"><label class="control-label">Date d'expiration</label></div>
                 <div class="col-sm-9">
                     <input type="date" class="form-control" [(ngModel)]="newProd.expiration"
-                    [ngModelOptions]="{standalone: true}" name="exp" id="exp" required #exp="ngModel">
+                        [ngModelOptions]="{standalone: true}" name="exp" id="exp" required #exp="ngModel">
                     <div *ngIf="exp.errors && (exp.dirty || exp.touched)" class="alert alert-danger">
                         <div [hidden]="!exp.errors.required">
                             Champ obligatoire!
@@ -239,9 +246,23 @@
                 </div>
                 <div class="col-sm-9">
                     <input type="number" class="form-control" [(ngModel)]="newProd.prix_prod"
-                    [ngModelOptions]="{standalone: true}" name="prix" id="prix" required #prix="ngModel">
+                        [ngModelOptions]="{standalone: true}" name="prix" id="prix" required #prix="ngModel">
                     <div *ngIf="prix.errors && (prix.dirty || prix.touched)" class="alert alert-danger">
                         <div [hidden]="!prix.errors.required">
+                            Champ obligatoire!
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3 pull-left">
+                    <label class="control-label">TVA*</label>
+                </div>
+                <div class="col-sm-9">
+                    <input type="number" class="form-control" [(ngModel)]="newProd.tva_prod"
+                        [ngModelOptions]="{standalone: true}" name="prix" id="prix" required #tva_prod="ngModel">
+                    <div *ngIf="tva_prod.errors && (tva_prod.dirty || tva_prod.touched)" class="alert alert-danger">
+                        <div [hidden]="!tva_prod.errors.required">
                             Champ obligatoire!
                         </div>
                     </div>
@@ -252,23 +273,23 @@
                     <label class="control-label">Fournisseur*</label>
                 </div>
                 <div class="col-sm-9">
-                    <select class="form-control" [(ngModel)]="newProd.fournisseur"
-                    [ngModelOptions]="{standalone: true}" name="four" id="four" required #four="ngModel">
+                    <select class="form-control" [(ngModel)]="newProd.fournisseur" [ngModelOptions]="{standalone: true}"
+                        name="four" id="four" required #four="ngModel">
                         <option disabled="true" selected="true">----Fournisseur----</option>
                         <option *ngFor="let fournisseur of fournisseurs" [ngValue]="fournisseur"
                             [selected]="fournisseur">{{fournisseur.nom_four}}</option>
                     </select>
                     <div *ngIf="four.errors && (four.dirty || four.touched)" class="alert alert-danger">
-                            <div [hidden]="!four.errors.required">
-                                Choix obligatoire!
-                            </div>
+                        <div [hidden]="!four.errors.required">
+                            Choix obligatoire!
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="modal-footer">
             <button type="submit" class="btn btn-success pull-left" (click)="addProduit()"
-            [disabled]="ref.errors||nom.errors||forme.errors||dsg.errors||cat.errors||qte.errors||prod.errors||exp.errors||prix.errors||four.errors">Ajouter</button>
+                [disabled]="ref.errors||tva_prod.errors||nom.errors||forme.errors||dsg.errors||cat.errors||qte.errors||prod.errors||exp.errors||prix.errors||four.errors">Ajouter</button>
             <button type="button" class="btn btn-danger" (click)="modalRef.hide()">Annuler</button>
 
         </div>
@@ -288,7 +309,7 @@
                 <div class="col-sm-3 pull-left"><label class="control-label">Réference*</label></div>
                 <div class="col-sm-9">
                     <input type="text" class="form-control" [(ngModel)]="prodToUpdate.ref_prod"
-                    [ngModelOptions]="{standalone: true}" name="ref" id="ref" required #ref="ngModel">
+                        [ngModelOptions]="{standalone: true}" name="ref" id="ref" required #ref="ngModel">
                     <div *ngIf="ref.errors && (ref.dirty || ref.touched)" class="alert alert-danger">
                         <div [hidden]="!ref.errors.required">
                             Champ obligatoire!
@@ -300,7 +321,7 @@
                 <div class="col-sm-3 pull-left"><label class="control-label">Nom*</label></div>
                 <div class="col-sm-9">
                     <input type="text" class="form-control" [(ngModel)]="prodToUpdate.nom_prod"
-                    [ngModelOptions]="{standalone: true}" name="nom" id="ref" required #nom="ngModel">
+                        [ngModelOptions]="{standalone: true}" name="nom" id="ref" required #nom="ngModel">
                     <div *ngIf="nom.errors && (nom.dirty || nom.touched)" class="alert alert-danger">
                         <div [hidden]="!nom.errors.required">
                             Champ obligatoire!
@@ -320,17 +341,17 @@
                         <option Inhalee>Inhalee</option>
                     </select>
                     <div *ngIf="forme.errors && (forme.dirty || forme.touched)" class="alert alert-danger">
-                            <div [hidden]="!forme.errors.required">
-                                Choix obligatoire!
-                            </div>
+                        <div [hidden]="!forme.errors.required">
+                            Choix obligatoire!
                         </div>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-3 pull-left"><label class="control-label">Dosage*</label></div>
                 <div class="col-sm-9">
                     <input type="text" class="form-control" [(ngModel)]="prodToUpdate.dosage_prod"
-                    [ngModelOptions]="{standalone: true}" name="dsg" id="dsg" required #dsg="ngModel">
+                        [ngModelOptions]="{standalone: true}" name="dsg" id="dsg" required #dsg="ngModel">
                     <div *ngIf="dsg.errors && (dsg.dirty || dsg.touched)" class="alert alert-danger">
                         <div [hidden]="!dsg.errors.required">
                             Champ obligatoire!
@@ -348,10 +369,10 @@
                             {{categorie.nom_cat}}</option>
                     </select>
                     <div *ngIf="cat.errors && (cat.dirty || cat.touched)" class="alert alert-danger">
-                            <div [hidden]="!cat.errors.required">
-                                Choix obligatoire!
-                            </div>
+                        <div [hidden]="!cat.errors.required">
+                            Choix obligatoire!
                         </div>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
@@ -359,7 +380,7 @@
                     <label class="control-label">Quantité*</label></div>
                 <div class="col-sm-9">
                     <input type="number" class="form-control" [(ngModel)]="prodToUpdate.qte_prod"
-                    [ngModelOptions]="{standalone: true}" name="qte" id="qte" required #qte="ngModel">
+                        [ngModelOptions]="{standalone: true}" name="qte" id="qte" required #qte="ngModel">
                     <div *ngIf="qte.errors && (qte.dirty || qte.touched)" class="alert alert-danger">
                         <div [hidden]="!qte.errors.required">
                             Champ obligatoire!
@@ -373,8 +394,9 @@
                 </div>
                 <div class="col-sm-9">
                     <input type="date" class="form-control" [(ngModel)]="prodToUpdate.production_prod"
-                    [ngModelOptions]="{standalone: true}" name="prod" id="prod" required #prod="ngModel">
-                    <div *ngIf="newProd.production_prod>testDate||(prod.errors && (prod.dirty || prod.touched))" class="alert alert-danger">
+                        [ngModelOptions]="{standalone: true}" name="prod" id="prod" required #prod="ngModel">
+                    <div *ngIf="newProd.production_prod>testDate||(prod.errors && (prod.dirty || prod.touched))"
+                        class="alert alert-danger">
                         <div [hidden]="!prod.errors.required">
                             Champ obligatoire!
                         </div>
@@ -388,7 +410,7 @@
                 <div class="col-sm-3 pull-left"><label class="control-label">Date d'expiration</label></div>
                 <div class="col-sm-9">
                     <input type="date" class="form-control" [(ngModel)]="prodToUpdate.expiration"
-                    [ngModelOptions]="{standalone: true}" name="exp" id="exp" required #exp="ngModel">
+                        [ngModelOptions]="{standalone: true}" name="exp" id="exp" required #exp="ngModel">
                     <div *ngIf="exp.errors && (exp.dirty || exp.touched)" class="alert alert-danger">
                         <div [hidden]="!exp.errors.required">
                             Champ obligatoire!
@@ -402,9 +424,23 @@
                 </div>
                 <div class="col-sm-9">
                     <input type="number" class="form-control" [(ngModel)]="prodToUpdate.prix_prod"
-                    [ngModelOptions]="{standalone: true}" name="prix" id="prix" required #prix="ngModel">
+                        [ngModelOptions]="{standalone: true}" name="prix" id="prix" required #prix="ngModel">
                     <div *ngIf="prix.errors && (prix.dirty || prix.touched)" class="alert alert-danger">
                         <div [hidden]="!prix.errors.required">
+                            Champ obligatoire!
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3 pull-left">
+                    <label class="control-label">TVA*</label>
+                </div>
+                <div class="col-sm-9">
+                    <input type="number" class="form-control" [(ngModel)]="prodToUpdate.tva_prod"
+                        [ngModelOptions]="{standalone: true}" name="prix" id="prix" required #tva_prod="ngModel">
+                    <div *ngIf="tva_prod.errors && (tva_prod.dirty || tva_prod.touched)" class="alert alert-danger">
+                        <div [hidden]="!tva_prod.errors.required">
                             Champ obligatoire!
                         </div>
                     </div>
@@ -416,22 +452,22 @@
                 </div>
                 <div class="col-sm-9">
                     <select class="form-control" [(ngModel)]="prodToUpdate.fournisseur"
-                    [ngModelOptions]="{standalone: true}" name="four" id="four" required #four="ngModel">
+                        [ngModelOptions]="{standalone: true}" name="four" id="four" required #four="ngModel">
                         <option disabled="true" selected="true">----Fournisseur----</option>
                         <option *ngFor="let fournisseur of fournisseurs" [ngValue]="fournisseur"
                             [selected]="fournisseur">{{fournisseur.nom_four}}</option>
                     </select>
                     <div *ngIf="four.errors && (four.dirty || four.touched)" class="alert alert-danger">
-                            <div [hidden]="!four.errors.required">
-                                Choix obligatoire!
-                            </div>
+                        <div [hidden]="!four.errors.required">
+                            Choix obligatoire!
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="modal-footer">
             <button type="submit" class="btn btn-success pull-left" (click)="updateProduit()"
-            [disabled]="ref.errors||nom.errors||forme.errors||dsg.errors||cat.errors||qte.errors||prod.errors||exp.errors||prix.errors||four.errors">Modifier</button>
+                [disabled]="ref.errors||tva_prod.errors||nom.errors||forme.errors||dsg.errors||cat.errors||qte.errors||prod.errors||exp.errors||prix.errors||four.errors">Modifier</button>
             <button type="button" class="btn btn-danger" (click)="modalRef.hide()">Annuler</button>
 
         </div>
@@ -494,12 +530,17 @@
                 <tr>
                     <td>
                         <strong>Fournisseur:</strong></td>
-                    <td><ng-container *ngIf="selectedProd.fournisseur">{{selectedProd.fournisseur.nom_four}}</ng-container></td>
+                    <td>
+                        <ng-container *ngIf="selectedProd.fournisseur">{{selectedProd.fournisseur.nom_four}}
+                        </ng-container>
+                    </td>
                 </tr>
                 <tr>
                     <td>
                         <strong>Catégorie:</strong></td>
-                    <td><ng-container *ngIf="selectedProd.categorie">{{selectedProd.categorie.nom_cat}}</ng-container></td>
+                    <td>
+                        <ng-container *ngIf="selectedProd.categorie">{{selectedProd.categorie.nom_cat}}</ng-container>
+                    </td>
                 </tr>
                 <tr>
                     <td>

@@ -6,4 +6,5 @@ export class Conges {
     date_ajout;
     date_modification;
     etat_conges;
+    employee;
 }

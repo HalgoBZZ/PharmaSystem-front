@@ -28,6 +28,12 @@ export class FournisseursComponent implements OnInit {
   indexTodelete;
   fournisseurs;
   loggedUser;
+  nom_filed;
+  email_field;
+  adresse_field;
+  tel_field;
+  ajout_field;
+  modification_field;
 
   constructor(private modalService: BsModalService, private fournisseurService: FournisseursService,
     private router: Router, private employeService: EmployesService) { }

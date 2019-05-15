@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { EmployesService } from 'src/app/services/employes.service';
 
 
 @Component({
@@ -12,10 +13,17 @@ export class AsideComponent implements OnInit {
   lgSub = false;
   stkSub = false;
   congSub = false;
-  constructor(private router: Router) { }
+  loggedUser;
+  constructor(private router: Router, private employeService: EmployesService) { }
 
   ngOnInit() {
+    const login = localStorage.getItem('login');
+    this.employeService.getByLogin(login).subscribe(data => {
+      this.loggedUser = data;
+    }, error => {
+    });
   }
+
 
   redirect() {
     this.router.navigate(['/employees']);

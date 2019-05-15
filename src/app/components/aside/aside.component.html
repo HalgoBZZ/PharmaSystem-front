@@ -9,13 +9,13 @@
                     <span>Tableau de bord</span>
                 </a>
             </li>
-            <li class="" >
+            <li class="" *ngIf="loggedUser.role_emp == 'Adminstrateur'">
                 <a [routerLink]="['/principal', {outlets: {child1: ['employees']}}]">
                     <i class="social_myspace"></i>
                     <span>Employées</span>
                 </a>
             </li>
-            <li class="sub-menu" [ngClass]="{'active':stkSub}" (click)="stkSub=!stkSub">
+            <li class="sub-menu" [ngClass]="{'active':stkSub}" (click)="stkSub=!stkSub" *ngIf="loggedUser.role_emp == 'Adminstrateur'">
                     <a class="" style="cursor: pointer;">
                         <i class="icon_document_alt"></i>
                         <span>Stock</span>
@@ -26,13 +26,13 @@
                         <li><a class="" [routerLink]="['/principal', {outlets: {child1: ['categories']}}]">Catégories</a></li>
                     </ul>
                 </li>
-            <li class="">
+            <li class="" *ngIf="loggedUser.role_emp == 'Adminstrateur'">
                 <a [routerLink]="['/principal', {outlets: {child1: ['fournisseurs']}}]" class="">
                     <i class="icon_documents_alt"></i>
                     <span>Fournisseurs</span>
                 </a>
             </li>
-            <li>
+            <li *ngIf="loggedUser.role_emp == 'Adminstrateur'">
                 <a class="" [routerLink]="['/principal', {outlets: {child1: ['rapports']}}]">
                     <i class="icon_piechart"></i>
                     <span>Rapports</span>
@@ -45,11 +45,12 @@
                     <span class="menu-arrow" [ngClass]="{'arrow_carrot-down':congSub, 'arrow_carrot-right': !congSub}"></span>
                 </a>
                 <ul [ngStyle]="{'display':congSub ? 'block':'none'}" style="list-style-type: none;">
-                        <li><a class="" [routerLink]="['/principal', {outlets: {child1: ['conges']}}]">Mes congés</a></li>
+                        <li *ngIf="loggedUser.role_emp != 'Adminstrateur'"><a class="" [routerLink]="['/principal', {outlets: {child1: ['conges']}}]">Mes congés</a></li>
+                        <li *ngIf="loggedUser.role_emp == 'Adminstrateur'"><a class="" [routerLink]="['/principal', {outlets: {child1: ['conges']}}]">Liste des congés</a></li>
                         <li><a class="" [routerLink]="['/principal', {outlets: {child1: ['calender']}}]">Mon calendrier</a></li>
                     </ul>
             </li>
-            <li>
+            <li *ngIf="loggedUser.role_emp == 'Caissier'">
                     <a class="" [routerLink]="['/principal', {outlets: {child1: ['caisse']}}]">
                         <i class="icon_currency"></i>
                         <span>Caisse</span>
@@ -66,7 +67,7 @@
                     <li><a class="" href="#">Anglais</a></li>
                 </ul>
             </li>
-            <li>
+            <li *ngIf="loggedUser.role_emp == 'Adminstrateur'">
                     <a class="" [routerLink]="['/principal', {outlets: {child1: ['conf']}}]">
                         <i class="icon_cog"></i>
                         <span>Configurations</span>

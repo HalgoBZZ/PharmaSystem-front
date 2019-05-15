@@ -36,22 +36,25 @@
                     <tr>
                         <th>
                             <ng-container *ngIf="!filter">Nom</ng-container>
-                            <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Nom">
+                            <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Nom"
+                                [(ngModel)]="nom_field" [value]="nom_field">
                             </ng-container>
                         </th>
                         <th>
                             <ng-container *ngIf="!filter">Date d'ajout</ng-container>
-                            <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Login">
+                            <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Date d'ajout"
+                                [(ngModel)]="ajout_field" [value]="ajout_field">
                             </ng-container>
                         </th>
                         <th>
                             <ng-container *ngIf="!filter">Derniere modification</ng-container>
-                            <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Login">
+                            <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Date de modification"
+                                [(ngModel)]="modification_field" [value]="modification_field">
                             </ng-container>
                         </th>
                         <th style="min-width: 5%;">Action</th>
                     </tr>
-                    <tr *ngFor="let categorie of categories; let i = index;">
+                    <tr *ngFor="let categorie of categories| filterNomCategorie: nom_field | filterAjoutCategorie: ajout_field| filterModificationCategorie: modification_field; let i = index;">
                         <td>{{categorie.nom_cat}}</td>
                         <td>{{categorie.date_ajout}}</td>
                         <td>{{categorie.date_modification}}</td>

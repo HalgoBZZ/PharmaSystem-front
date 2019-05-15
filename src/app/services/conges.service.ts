@@ -16,6 +16,12 @@ export class CongesService {
     return this.http.get(this.uri + 'all', options);
   }
 
+  getByUser(user) {
+    this.headers.append('Accept', 'application/json;charset=UTF-8');
+    const options = { headers: this.headers };
+    return this.http.get(this.uri + 'byuser/' + user, options);
+  }
+
   getCongeById(idConges) {
     this.headers.append('Accept', 'application/json;charset=UTF-8');
     const options = { headers: this.headers };

@@ -36,37 +36,45 @@
                     <tr>
                         <th>
                             <ng-container *ngIf="!filter">Nom</ng-container>
-                            <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Nom">
+                            <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Nom"
+                                [(ngModel)]="nom_filed" [value]="nom_filed">
                             </ng-container>
                         </th>
                         <th>
                             <ng-container *ngIf="!filter">Email</ng-container>
-                            <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Email">
+                            <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Email"
+                                [(ngModel)]="email_field" [value]="email_field">
                             </ng-container>
                         </th>
                         <th>
                             <ng-container *ngIf="!filter">Adresse</ng-container>
-                            <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Adresse">
+                            <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Adresse"
+                                [(ngModel)]="adresse_field" [value]="adresse_field">
                             </ng-container>
                         </th>
                         <th>
                             <ng-container *ngIf="!filter">Telphone</ng-container>
                             <ng-container *ngIf="filter"><input type="text" class="form-control"
+                                [(ngModel)]="tel_field" [value]="tel_field"
                                     placeholder="Telephone"></ng-container>
                         </th>
                         <th>
                             <ng-container *ngIf="!filter">Date d'ajout</ng-container>
-                            <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Login">
+                            <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Date d'ajout"
+                                [(ngModel)]="ajout_field" [value]="ajout_field">
                             </ng-container>
                         </th>
                         <th>
                             <ng-container *ngIf="!filter">Derniere modification</ng-container>
-                            <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Login">
+                            <ng-container *ngIf="filter"><input type="text" class="form-control" placeholder="Date de modification"
+                                [(ngModel)]="modification_field" [value]="modification_field" >
                             </ng-container>
                         </th>
                         <th style="min-width: 5%;">Action</th>
                     </tr>
-                    <tr *ngFor="let fournisseur of fournisseurs; let i = index;">
+                    <tr *ngFor="let fournisseur of fournisseurs |filterModificationFournisseur: modification_field
+                    |filterAjoutFournisseur: ajout_field| filterTelFournisseur: tel_field|filterAdresseFournisseur: adresse_field
+                    |filterEmailFournisseur: email_field| filterNomFournisseur: nom_filed; let i = index;">
                         <td>{{fournisseur.nom_four}}</td>
                         <td>{{fournisseur.email_four}}</td>
                         <td>{{fournisseur.adresse_four}}</td>

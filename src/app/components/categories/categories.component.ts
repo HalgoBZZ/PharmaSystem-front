@@ -29,6 +29,10 @@ export class CategoriesComponent implements OnInit {
   indexTodelete;
   categories;
   loggedUser;
+  nom_field;
+  ajout_field;
+  modification_field;
+
 
   constructor(private modalService: BsModalService, private categorieService: CategoriesService,
     private employeService: EmployesService, private router: Router) { }

@@ -31,6 +31,14 @@ export class EmployeesComponent implements OnInit {
   deleteError = false;
   loggedUser;
   confirmationpwd;
+  adress_field;
+  nom_field;
+  prenom_field;
+  date_naiss_field;
+  email_field;
+  tel_field;
+  role_field;
+  sexe_field;
 
   constructor(private modalService: BsModalService, private employeService: EmployesService, private router: Router) { }
 
